@@ -48,10 +48,6 @@
         .card img {
             width: 100%;
             border-radius: 4px;
-            cursor: pointer;
-        }
-        .card p, .card h3 {
-            cursor: pointer;
         }
         .card button {
             margin-top: 1rem;
@@ -74,33 +70,187 @@
     <input type="search" class="search-bar" placeholder="Rechercher des packs...">
 </header>
 <div class="grid">
-    <!-- 30 cartes -->
-    ${Array.from({ length: 30 }, (_, i) => `
-    <div class="card" data-file="pack${i + 1}.zip">
-        <img src="https://iili.io/placeholder${i + 1}.jpg" alt="Pack ${i + 1}" onclick="editImage(this)">
-        <h3 onclick="editText(this)">Pack ${i + 1}</h3>
-        <p onclick="editText(this)">Description modifiable ici pour le pack ${i + 1}</p>
-        <button onclick="editFile(this)">Fichier : pack${i + 1}.zip</button>
+    <!-- Les 30 cartes -->
+    <div class="card" data-file="pack1.zip">
+        <img src="https://iili.io/placeholder1.jpg" alt="Pack 1">
+        <h3>Pack 1</h3>
+        <p>Description modifiable ici pour le pack 1</p>
+        <button>Fichier : pack1.zip</button>
     </div>
-    `).join('')}
+    <div class="card" data-file="pack2.zip">
+        <img src="https://iili.io/placeholder2.jpg" alt="Pack 2">
+        <h3>Pack 2</h3>
+        <p>Description modifiable ici pour le pack 2</p>
+        <button>Fichier : pack2.zip</button>
+    </div>
+    <div class="card" data-file="pack3.zip">
+        <img src="https://iili.io/placeholder3.jpg" alt="Pack 3">
+        <h3>Pack 3</h3>
+        <p>Description modifiable ici pour le pack 3</p>
+        <button>Fichier : pack3.zip</button>
+    </div>
+    <div class="card" data-file="pack4.zip">
+        <img src="https://iili.io/placeholder4.jpg" alt="Pack 4">
+        <h3>Pack 4</h3>
+        <p>Description modifiable ici pour le pack 4</p>
+        <button>Fichier : pack4.zip</button>
+    </div>
+    <div class="card" data-file="pack5.zip">
+        <img src="https://iili.io/placeholder5.jpg" alt="Pack 5">
+        <h3>Pack 5</h3>
+        <p>Description modifiable ici pour le pack 5</p>
+        <button>Fichier : pack5.zip</button>
+    </div>
+    <div class="card" data-file="pack6.zip">
+        <img src="https://iili.io/placeholder6.jpg" alt="Pack 6">
+        <h3>Pack 6</h3>
+        <p>Description modifiable ici pour le pack 6</p>
+        <button>Fichier : pack6.zip</button>
+    </div>
+    <div class="card" data-file="pack7.zip">
+        <img src="https://iili.io/placeholder7.jpg" alt="Pack 7">
+        <h3>Pack 7</h3>
+        <p>Description modifiable ici pour le pack 7</p>
+        <button>Fichier : pack7.zip</button>
+    </div>
+    <div class="card" data-file="pack8.zip">
+        <img src="https://iili.io/placeholder8.jpg" alt="Pack 8">
+        <h3>Pack 8</h3>
+        <p>Description modifiable ici pour le pack 8</p>
+        <button>Fichier : pack8.zip</button>
+    </div>
+    <div class="card" data-file="pack9.zip">
+        <img src="https://iili.io/placeholder9.jpg" alt="Pack 9">
+        <h3>Pack 9</h3>
+        <p>Description modifiable ici pour le pack 9</p>
+        <button>Fichier : pack9.zip</button>
+    </div>
+    <div class="card" data-file="pack10.zip">
+        <img src="https://iili.io/placeholder10.jpg" alt="Pack 10">
+        <h3>Pack 10</h3>
+        <p>Description modifiable ici pour le pack 10</p>
+        <button>Fichier : pack10.zip</button>
+    </div>
+    <div class="card" data-file="pack11.zip">
+        <img src="https://iili.io/placeholder11.jpg" alt="Pack 11">
+        <h3>Pack 11</h3>
+        <p>Description modifiable ici pour le pack 11</p>
+        <button>Fichier : pack11.zip</button>
+    </div>
+    <div class="card" data-file="pack12.zip">
+        <img src="https://iili.io/placeholder12.jpg" alt="Pack 12">
+        <h3>Pack 12</h3>
+        <p>Description modifiable ici pour le pack 12</p>
+        <button>Fichier : pack12.zip</button>
+    </div>
+    <div class="card" data-file="pack13.zip">
+        <img src="https://iili.io/placeholder13.jpg" alt="Pack 13">
+        <h3>Pack 13</h3>
+        <p>Description modifiable ici pour le pack 13</p>
+        <button>Fichier : pack13.zip</button>
+    </div>
+    <div class="card" data-file="pack14.zip">
+        <img src="https://iili.io/placeholder14.jpg" alt="Pack 14">
+        <h3>Pack 14</h3>
+        <p>Description modifiable ici pour le pack 14</p>
+        <button>Fichier : pack14.zip</button>
+    </div>
+    <div class="card" data-file="pack15.zip">
+        <img src="https://iili.io/placeholder15.jpg" alt="Pack 15">
+        <h3>Pack 15</h3>
+        <p>Description modifiable ici pour le pack 15</p>
+        <button>Fichier : pack15.zip</button>
+    </div>
+    <div class="card" data-file="pack16.zip">
+        <img src="https://iili.io/placeholder16.jpg" alt="Pack 16">
+        <h3>Pack 16</h3>
+        <p>Description modifiable ici pour le pack 16</p>
+        <button>Fichier : pack16.zip</button>
+    </div>
+    <div class="card" data-file="pack17.zip">
+        <img src="https://iili.io/placeholder17.jpg" alt="Pack 17">
+        <h3>Pack 17</h3>
+        <p>Description modifiable ici pour le pack 17</p>
+        <button>Fichier : pack17.zip</button>
+    </div>
+    <div class="card" data-file="pack18.zip">
+        <img src="https://iili.io/placeholder18.jpg" alt="Pack 18">
+        <h3>Pack 18</h3>
+        <p>Description modifiable ici pour le pack 18</p>
+        <button>Fichier : pack18.zip</button>
+    </div>
+    <div class="card" data-file="pack19.zip">
+        <img src="https://iili.io/placeholder19.jpg" alt="Pack 19">
+        <h3>Pack 19</h3>
+        <p>Description modifiable ici pour le pack 19</p>
+        <button>Fichier : pack19.zip</button>
+    </div>
+    <div class="card" data-file="pack20.zip">
+        <img src="https://iili.io/placeholder20.jpg" alt="Pack 20">
+        <h3>Pack 20</h3>
+        <p>Description modifiable ici pour le pack 20</p>
+        <button>Fichier : pack20.zip</button>
+    </div>
+    <div class="card" data-file="pack21.zip">
+        <img src="https://iili.io/placeholder21.jpg" alt="Pack 21">
+        <h3>Pack 21</h3>
+        <p>Description modifiable ici pour le pack 21</p>
+        <button>Fichier : pack21.zip</button>
+    </div>
+    <div class="card" data-file="pack22.zip">
+        <img src="https://iili.io/placeholder22.jpg" alt="Pack 22">
+        <h3>Pack 22</h3>
+        <p>Description modifiable ici pour le pack 22</p>
+        <button>Fichier : pack22.zip</button>
+    </div>
+    <div class="card" data-file="pack23.zip">
+        <img src="https://iili.io/placeholder23.jpg" alt="Pack 23">
+        <h3>Pack 23</h3>
+        <p>Description modifiable ici pour le pack 23</p>
+        <button>Fichier : pack23.zip</button>
+    </div>
+    <div class="card" data-file="pack24.zip">
+        <img src="https://iili.io/placeholder24.jpg" alt="Pack 24">
+        <h3>Pack 24</h3>
+        <p>Description modifiable ici pour le pack 24</p>
+        <button>Fichier : pack24.zip</button>
+    </div>
+    <div class="card" data-file="pack25.zip">
+        <img src="https://iili.io/placeholder25.jpg" alt="Pack 25">
+        <h3>Pack 25</h3>
+        <p>Description modifiable ici pour le pack 25</p>
+        <button>Fichier : pack25.zip</button>
+    </div>
+    <div class="card" data-file="pack26.zip">
+        <img src="https://iili.io/placeholder26.jpg" alt="Pack 26">
+        <h3>Pack 26</h3>
+        <p>Description modifiable ici pour le pack 26</p>
+        <button>Fichier : pack26.zip</button>
+    </div>
+    <div class="card" data-file="pack27.zip">
+        <img src="https://iili.io/placeholder27.jpg" alt="Pack 27">
+        <h3>Pack 27</h3>
+        <p>Description modifiable ici pour le pack 27</p>
+        <button>Fichier : pack27.zip</button>
+    </div>
+    <div class="card" data-file="pack28.zip">
+        <img src="https://iili.io/placeholder28.jpg" alt="Pack 28">
+        <h3>Pack 28</h3>
+        <p>Description modifiable ici pour le pack 28</p>
+        <button>Fichier : pack28.zip</button>
+    </div>
+    <div class="card" data-file="pack29.zip">
+        <img src="https://iili.io/placeholder29.jpg" alt="Pack 29">
+        <h3>Pack 29</h3>
+        <p>Description modifiable ici pour le pack 29</p>
+        <button>Fichier : pack29.zip</button>
+    </div>
+    <div class="card" data-file="pack30.zip">
+        <img src="https://iili.io/placeholder30.jpg" alt="Pack 30">
+        <h3>Pack 30</h3>
+        <p>Description modifiable ici pour le pack 30</p>
+        <button>Fichier : pack30.zip</button>
+    </div>
 </div>
-<script>
-    function editImage(img) {
-        const url = prompt("Entrez l'URL de la nouvelle image :", img.src);
-        if (url) img.src = url;
-    }
-    function editText(element) {
-        const newText = prompt("Modifiez le texte :", element.textContent);
-        if (newText) element.textContent = newText;
-    }
-    function editFile(button) {
-        const newFile = prompt("Entrez le nom ou le chemin du nouveau fichier :", button.textContent.replace('Fichier : ', ''));
-        if (newFile) {
-            const card = button.closest('.card');
-            card.dataset.file = newFile;
-            button.textContent = `Fichier : ${newFile}`;
-        }
-    }
-</script>
 </body>
 </html>
