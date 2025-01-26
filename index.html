@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BloxdTweaks</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        body {
+            background: url('https://iili.io/2LnOhhX.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(90deg, #ff8c00, #ffcc33);
+        }
+        header h1 {
+            margin: 0;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        .search-bar {
+            margin: 2rem auto;
+            width: 80%;
+            max-width: 600px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 2rem;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+        }
+        .card img {
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .card p, .card h3 {
+            cursor: pointer;
+        }
+        .card button {
+            margin-top: 1rem;
+            background: linear-gradient(90deg, #ff8c00, #ffcc33);
+            border: none;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .card button:hover {
+            background: #ffcc33;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>BloxdTweaks</h1>
+    <input type="search" class="search-bar" placeholder="Rechercher des packs...">
+</header>
+<div class="grid">
+    <!-- Génération de 30 cartes -->
+    <!-- Modifiez les images et descriptions directement dans le code HTML -->
+    ${Array.from({ length: 30 }, (_, i) => `
+    <div class="card" data-file="pack${i + 1}.zip">
+        <img src="https://iili.io/placeholder${i + 1}.jpg" alt="Pack ${i + 1}" onclick="editImage(this)">
+        <h3 onclick="editText(this)">Pack ${i + 1}</h3>
+        <p onclick="editText(this)">Description modifiable ici pour le pack ${i + 1}</p>
+        <button onclick="editFile(this)">Fichier : pack${i + 1}.zip</button>
+    </div>`).join('')}
+</div>
+<script>
+    // Permet de modifier une image
+    function editImage(img) {
+        const url = prompt("Entrez l'URL de la nouvelle image :", img.src);
+        if (url) {
+            img.src = url;
+        }
+    }
+
+    // Permet de modifier du texte (titre ou description)
+    function editText(element) {
+        const newText = prompt("Modifiez le texte :", element.textContent);
+        if (newText) {
+            element.textContent = newText;
+        }
+    }
+
+    // Permet de modifier le fichier téléchargeable
+    function editFile(button) {
+        const newFile = prompt("Entrez le nom ou le chemin du nouveau fichier :", button.textContent.replace('Fichier : ', ''));
+        if (newFile) {
+            const card = button.closest('.card');
+            card.dataset.file = newFile;
+            button.textContent = `Fichier : ${newFile}`;
+        }
+    }
+</script>
+</body>
+</html>
