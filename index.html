@@ -65,75 +65,71 @@
         }
         .downloads {
             position: absolute;
-            top: 8px;
-            left: 8px;
+            top: 10px;
+            left: 10px;
             background: rgba(0, 0, 0, 0.6);
             color: #fff;
             padding: 0.2rem 0.5rem;
             border-radius: 4px;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
         }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const searchBar = document.querySelector('.search-bar');
-            const cards = document.querySelectorAll('.card');
-
-            // Barre de recherche
-            searchBar.addEventListener('input', (e) => {
-                const query = e.target.value.toLowerCase();
-                cards.forEach(card => {
-                    const title = card.querySelector('h3').textContent.toLowerCase();
-                    if (title.includes(query)) {
-                        card.style.display = '';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-
-            // Gestion des téléchargements
-            cards.forEach(card => {
-                const button = card.querySelector('button');
-                const downloadCounter = card.querySelector('.downloads');
-                let downloads = 0;
-
-                button.addEventListener('click', () => {
-                    downloads += 1;
-                    downloadCounter.textContent = `${downloads} téléchargements`;
-                });
-            });
-        });
-    </script>
 </head>
 <body>
 <header>
     <h1>BloxdTweaks</h1>
-    <input type="search" class="search-bar" placeholder="Rechercher des packs...">
+    <input type="search" class="search-bar" placeholder="Search for packs..." oninput="filterPacks()">
 </header>
 <div class="grid">
     <!-- Exemple de carte pour les packs -->
-    <div class="card" data-file="pack1.zip">
-        <span class="downloads">0 téléchargements</span>
+    <div class="card" data-file="pack1.zip" data-title="Fixed Bowls">
+        <div class="downloads">0 Downloads</div>
         <img src="https://iili.io/2Lowp7p.png" alt="Fixed Bowls">
         <h3>Fixed Bowls</h3>
-        <p>Un pack qui corrige les positions et modèles des bols de riz et des soupes aux champignons.</p>
-        <button>Download</button>
+        <p>A simple pack that fixes the positions and models of the rice bowls and mushroom soups.</p>
+        <button onclick="downloadFile(this, 'pack1.zip')">Download fixed_bowls_BloxdTweaks.zip</button>
     </div>
-    <div class="card" data-file="pack2.zip">
-        <span class="downloads">0 téléchargements</span>
+    <div class="card" data-file="pack2.zip" data-title="Smoother Cornbread">
+        <div class="downloads">0 Downloads</div>
         <img src="https://iili.io/2L5ZfCN.png" alt="Pack 2">
         <h3>Smoother Cornbread</h3>
-        <p>Un pack qui améliore l'apparence du pain de maïs.</p>
-         <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/smoother_cornbread_BloxdTweaks.zip')">Download</button>
+        <p>A pack that just make the cornbread better.</p>
+        <button onclick="downloadFile(this, 'pack2.zip')">Download smoother_cornbread_BloxdTweaks.zip</button>
     </div>
-    <div class="card" data-file="pack3.zip">
-        <span class="downloads">0 téléchargements</span>
-        <img src="https://iili.io/2LlEq0P.png" alt="Pack 3">
-        <h3>Better Helmets</h3>
-        <p>Ce pack rend les casques plus stylés, idéal pour le PvP !</p>
-        <button>Download</button>
-    </div>
+    <!-- Add more packs as needed -->
 </div>
+
+<script>
+    // Load download counts from localStorage
+    const downloadCounts = JSON.parse(localStorage.getItem('downloadCounts')) || {};
+
+    document.querySelectorAll('.card').forEach(card => {
+        const file = card.getAttribute('data-file');
+        const count = downloadCounts[file] || 0;
+        card.querySelector('.downloads').textContent = `${count} Downloads`;
+    });
+
+    function downloadFile(button, file) {
+        const url = button.textContent.split(' ')[1];
+        const card = button.closest('.card');
+
+        // Check if already downloaded
+        if (!downloadCounts[file]) {
+            downloadCounts[file] = 1;
+            localStorage.setItem('downloadCounts', JSON.stringify(downloadCounts));
+            card.querySelector('.downloads').textContent = `${downloadCounts[file]} Downloads`;
+        }
+
+        window.location.href = url;
+    }
+
+    function filterPacks() {
+        const query = document.querySelector('.search-bar').value.toLowerCase();
+        document.querySelectorAll('.card').forEach(card => {
+            const title = card.getAttribute('data-title').toLowerCase();
+            card.style.display = title.includes(query) ? 'block' : 'none';
+        });
+    }
+</script>
 </body>
 </html>
