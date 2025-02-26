@@ -34,7 +34,6 @@
             margin: 2rem;
         }
         .card {
-            position: relative;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
@@ -63,114 +62,201 @@
         .card button:hover {
             background: #ffcc33;
         }
-        .downloads {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(0, 0, 0, 0.6);
-            color: #fff;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
-        }
     </style>
 </head>
 <body>
 <header>
     <h1>BloxdTweaks</h1>
-    <input type="search" class="search-bar" placeholder="Search for packs..." oninput="filterPacks()">
+    <input type="search" class="search-bar" placeholder="Search for packs...">
 </header>
 <div class="grid">
     <!-- Exemple de carte pour les packs -->
-    <div class="card" data-file="pack1.zip" data-title="Fixed Bowls">
-        <div class="downloads">0 Downloads</div>
+    <div class="card" data-file="pack1.zip">
         <img src="https://iili.io/2Lowp7p.png" alt="Fixed Bowls">
         <h3>Fixed Bowls</h3>
-        <p>A simple pack that fixes the positions and models of the rice bowls and mushroom soups.</p>
-        <button onclick="downloadFile(this, 'https://github.com/Cazozozop/BloxdTweaks/raw/main/fixed_bowls_BloxdTweaks.zip')">Download fixed_bowls_BloxdTweaks.zip</button>
+        <p>A simple pack that fixes the positions and models of the rice bowls and mushroom soups</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/fixed_bowls_BloxdTweaks.zip')">Download fixed_bowls_BloxdTweaks.zip</button>
     </div>
-    <div class="card" data-file="pack2.zip" data-title="Smoother Cornbread">
-        <div class="downloads">0 Downloads</div>
-        <img src="https://iili.io/2L5ZfCN.png" alt="Pack 2">
-        <h3>Smoother Cornbread</h3>
-        <p>A pack that just make the cornbread better.</p>
-        <button onclick="downloadFile(this, 'https://github.com/Cazozozop/BloxdTweaks/raw/main/smoother_cornbread_BloxdTweaks.zip')">Download smoother_cornbread_BloxdTweaks.zip</button>
+    <div class="card" data-file="pack2.zip">
+        <img src="https://iili.io/placeholder2.jpg" alt="Pack 2">
+        <h3>Pack 2</h3>
+        <p>Description modifiable ici pour le pack 2</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack2.zip')">Download pack2.zip</button>
     </div>
-    <div class="card" data-file="pack3.zip" data-title="Better Helmets">
-        <div class="downloads">0 Downloads</div>
-        <img src="https://iili.io/2LlEq0P.png" alt="Pack 3">
-        <h3>Better Helmets</h3>
-        <p>This pack make the helmets more cool and better, it's also good for PvP!</p>
-        <button onclick="downloadFile(this, 'https://github.com/Cazozozop/BloxdTweaks/raw/main/better_helmets_BloxdTweaks.zip')">Download better_helmets_BloxdTweaks.zip</button>
+    <div class="card" data-file="pack3.zip">
+        <img src="https://iili.io/placeholder3.jpg" alt="Pack 3">
+        <h3>Pack 3</h3>
+        <p>Description modifiable ici pour le pack 3</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack3.zip')">Download pack3.zip</button>
+    </div>
+    <div class="card" data-file="pack4.zip">
+        <img src="https://iili.io/placeholder4.jpg" alt="Pack 4">
+        <h3>Pack 4</h3>
+        <p>Description modifiable ici pour le pack 4</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack4.zip')">Download pack4.zip</button>
+    </div>
+    <div class="card" data-file="pack5.zip">
+        <img src="https://iili.io/placeholder5.jpg" alt="Pack 5">
+        <h3>Pack 5</h3>
+        <p>Description modifiable ici pour le pack 5</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack5.zip')">Download pack5.zip</button>
+    </div>
+    <div class="card" data-file="pack6.zip">
+        <img src="https://iili.io/placeholder6.jpg" alt="Pack 6">
+        <h3>Pack 6</h3>
+        <p>Description modifiable ici pour le pack 6</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack6.zip')">Download pack6.zip</button>
+    </div>
+    <div class="card" data-file="pack7.zip">
+        <img src="https://iili.io/placeholder7.jpg" alt="Pack 7">
+        <h3>Pack 7</h3>
+        <p>Description modifiable ici pour le pack 7</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack7.zip')">Download pack7.zip</button>
+    </div>
+    <div class="card" data-file="pack8.zip">
+        <img src="https://iili.io/placeholder8.jpg" alt="Pack 8">
+        <h3>Pack 8</h3>
+        <p>Description modifiable ici pour le pack 8</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack8.zip')">Download pack8.zip</button>
+    </div>
+    <div class="card" data-file="pack9.zip">
+        <img src="https://iili.io/placeholder9.jpg" alt="Pack 9">
+        <h3>Pack 9</h3>
+        <p>Description modifiable ici pour le pack 9</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack9.zip')">Download pack9.zip</button>
+    </div>
+    <div class="card" data-file="pack10.zip">
+        <img src="https://iili.io/placeholder10.jpg" alt="Pack 10">
+        <h3>Pack 10</h3>
+        <p>Description modifiable ici pour le pack 10</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack10.zip')">Download pack10.zip</button>
+    </div>
+    <div class="card" data-file="pack11.zip">
+        <img src="https://iili.io/placeholder11.jpg" alt="Pack 11">
+        <h3>Pack 11</h3>
+        <p>Description modifiable ici pour le pack 11</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack11.zip')">Download pack11.zip</button>
+    </div>
+    <div class="card" data-file="pack12.zip">
+        <img src="https://iili.io/placeholder12.jpg" alt="Pack 12">
+        <h3>Pack 12</h3>
+        <p>Description modifiable ici pour le pack 12</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack12.zip')">Download pack12.zip</button>
+    </div>
+    <div class="card" data-file="pack13.zip">
+        <img src="https://iili.io/placeholder13.jpg" alt="Pack 13">
+        <h3>Pack 13</h3>
+        <p>Description modifiable ici pour le pack 13</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack13.zip')">Download pack13.zip</button>
+    </div>
+    <div class="card" data-file="pack14.zip">
+        <img src="https://iili.io/placeholder14.jpg" alt="Pack 14">
+        <h3>Pack 14</h3>
+        <p>Description modifiable ici pour le pack 14</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack14.zip')">Download pack14.zip</button>
+    </div>
+    <div class="card" data-file="pack15.zip">
+        <img src="https://iili.io/placeholder15.jpg" alt="Pack 15">
+        <h3>Pack 15</h3>
+        <p>Description modifiable ici pour le pack 15</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack15.zip')">Download pack15.zip</button>
+    </div>
+    <div class="card" data-file="pack16.zip">
+        <img src="https://iili.io/placeholder16.jpg" alt="Pack 16">
+        <h3>Pack 16</h3>
+        <p>Description modifiable ici pour le pack 16</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack16.zip')">Download pack16.zip</button>
+    </div>
+    <div class="card" data-file="pack17.zip">
+        <img src="https://iili.io/placeholder17.jpg" alt="Pack 17">
+        <h3>Pack 17</h3>
+        <p>Description modifiable ici pour le pack 17</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack17.zip')">Download pack17.zip</button>
+    </div>
+    <div class="card" data-file="pack18.zip">
+        <img src="https://iili.io/placeholder18.jpg" alt="Pack 18">
+        <h3>Pack 18</h3>
+        <p>Description modifiable ici pour le pack 18</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack18.zip')">Download pack18.zip</button>
+    </div>
+    <div class="card" data-file="pack19.zip">
+        <img src="https://iili.io/placeholder19.jpg" alt="Pack 19">
+        <h3>Pack 19</h3>
+        <p>Description modifiable ici pour le pack 19</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack19.zip')">Download pack19.zip</button>
+    </div>
+    <div class="card" data-file="pack20.zip">
+        <img src="https://iili.io/placeholder20.jpg" alt="Pack 20">
+        <h3>Pack 20</h3>
+        <p>Description modifiable ici pour le pack 20</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack20.zip')">Download pack20.zip</button>
+    </div>
+    <div class="card" data-file="pack21.zip">
+        <img src="https://iili.io/placeholder21.jpg" alt="Pack 21">
+        <h3>Pack 21</h3>
+        <p>Description modifiable ici pour le pack 21</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack21.zip')">Download pack21.zip</button>
+    </div>
+    <div class="card" data-file="pack22.zip">
+        <img src="https://iili.io/placeholder22.jpg" alt="Pack 22">
+        <h3>Pack 22</h3>
+        <p>Description modifiable ici pour le pack 22</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack22.zip')">Download pack22.zip</button>
+    </div>
+    <div class="card" data-file="pack23.zip">
+        <img src="https://iili.io/placeholder23.jpg" alt="Pack 23">
+        <h3>Pack 23</h3>
+        <p>Description modifiable ici pour le pack 23</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack23.zip')">Download pack23.zip</button>
+    </div>
+    <div class="card" data-file="pack24.zip">
+        <img src="https://iili.io/placeholder24.jpg" alt="Pack 24">
+        <h3>Pack 24</h3>
+        <p>Description modifiable ici pour le pack 24</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack24.zip')">Download pack24.zip</button>
+    </div>
+    <div class="card" data-file="pack25.zip">
+        <img src="https://iili.io/placeholder25.jpg" alt="Pack 25">
+        <h3>Pack 25</h3>
+        <p>Description modifiable ici pour le pack 25</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack25.zip')">Download pack25.zip</button>
+    </div>
+    <div class="card" data-file="pack26.zip">
+        <img src="https://iili.io/placeholder26.jpg" alt="Pack 26">
+        <h3>Pack 26</h3>
+        <p>Description modifiable ici pour le pack 26</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack26.zip')">Download pack26.zip</button>
+    </div>
+    <div class="card" data-file="pack27.zip">
+        <img src="https://iili.io/placeholder27.jpg" alt="Pack 27">
+        <h3>Pack 27</h3>
+        <p>Description modifiable ici pour le pack 27</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack27.zip')">Download pack27.zip</button>
+    </div>
+    <div class="card" data-file="pack28.zip">
+        <img src="https://iili.io/placeholder28.jpg" alt="Pack 28">
+        <h3>Pack 28</h3>
+        <p>Description modifiable ici pour le pack 28</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack28.zip')">Download pack28.zip</button>
+    </div>
+    <div class="card" data-file="pack29.zip">
+        <img src="https://iili.io/placeholder29.jpg" alt="Pack 29">
+        <h3>Pack 29</h3>
+        <p>Description modifiable ici pour le pack 29</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack29.zip')">Download pack29.zip</button>
+    </div>
+    <div class="card" data-file="pack30.zip">
+        <img src="https://iili.io/placeholder30.jpg" alt="Pack 30">
+        <h3>Pack 30</h3>
+        <p>Description modifiable ici pour le pack 30</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/pack30.zip')">Download pack30.zip</button>
     </div>
 </div>
 
 <script>
-    const GITHUB_API = 'https://api.github.com/repos/Cazozozop/BloxdTweaks/contents/downloads.json';
-    const TOKEN = 'YOUR_TOKEN';
-
-    async function fetchDownloads() {
-        const response = await fetch(GITHUB_API, {
-            headers: { Authorization: `token ${TOKEN}` }
-        });
-        const data = await response.json();
-        return JSON.parse(atob(data.content));
-    }
-
-    async function updateDownloads(file) {
-        const downloads = await fetchDownloads();
-        if (!downloads[file]) downloads[file] = 0;
-        downloads[file]++;
-
-        const response = await fetch(GITHUB_API, {
-            method: 'PUT',
-            headers: {
-                Authorization: `token ${TOKEN}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                message: 'Update download counts',
-                content: btoa(JSON.stringify(downloads)),
-                sha: await getSha()
-            })
-        });
-        return response.ok;
-    }
-
-    async function getSha() {
-        const response = await fetch(GITHUB_API, {
-            headers: { Authorization: `token ${TOKEN}` }
-        });
-        const data = await response.json();
-        return data.sha;
-    }
-
-    async function downloadFile(button, url) {
-        const card = button.closest('.card');
-        const file = card.getAttribute('data-file');
-        await updateDownloads(file);
-        const downloads = await fetchDownloads();
-        card.querySelector('.downloads').textContent = `${downloads[file]} Downloads`;
+    function downloadFile(url) {
         window.location.href = url;
     }
-
-    async function initialize() {
-        const downloads = await fetchDownloads();
-        document.querySelectorAll('.card').forEach(card => {
-            const file = card.getAttribute('data-file');
-            card.querySelector('.downloads').textContent = `${downloads[file] || 0} Downloads`;
-        });
-    }
-
-    function filterPacks() {
-        const query = document.querySelector('.search-bar').value.toLowerCase();
-        document.querySelectorAll('.card').forEach(card => {
-            const title = card.getAttribute('data-title').toLowerCase();
-            card.style.display = title.includes(query) ? 'block' : 'none';
-        });
-    }
-
-    initialize();
 </script>
 </body>
 </html>
