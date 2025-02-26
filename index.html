@@ -34,6 +34,7 @@
             margin: 2rem;
         }
         .card {
+            position: relative;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
@@ -62,36 +63,86 @@
         .card button:hover {
             background: #ffcc33;
         }
+        .favorite {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            color: black;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 <header>
     <h1>BloxdTweaks</h1>
-    <input type="search" class="search-bar" placeholder="Search for packs...">
+    <input type="search" class="search-bar" placeholder="Search for packs..." oninput="filterPacks()">
 </header>
-<div class="grid">
-    <!-- Exemple de carte -->
-    <div class="card" data-file="pack1.zip">
+<div class="grid" id="packsGrid">
+    <div class="card" data-file="pack1.zip" data-title="Fixed Bowls">
+        <span class="favorite" onclick="toggleFavorite('pack1.zip')">☆</span>
         <img src="https://iili.io/2Lowp7p.png" alt="Fixed Bowls">
         <h3>Fixed Bowls</h3>
-        <p>A simple pack that fixes the positions and models of the rice bowls and mushroom soups</p>
-        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/fixed_bowls_BloxdTweaks.zip')">Download fixed_bowls_BloxdTweaks.zip</button>
+        <p>A simple pack that fixes the positions and models of the rice bowls and mushroom soups.</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/fixed_bowls_BloxdTweaks.zip')">Download</button>
     </div>
-    <div class="card" data-file="pack2.zip">
-        <img src="https://iili.io/placeholder2.jpg" alt="Pack 2">
-        <h3>Pack 2</h3>
-        <p>Description modifiable ici pour le pack 2</p>
-        <button onclick="downloadFile('pack2.zip')">Fichier : pack2.zip</button>
+    <div class="card" data-file="pack2.zip" data-title="Smoother Cornbread">
+        <span class="favorite" onclick="toggleFavorite('pack2.zip')">☆</span>
+        <img src="https://iili.io/2L5ZfCN.png" alt="Pack 2">
+        <h3>Smoother Cornbread</h3>
+        <p>A pack that just makes the cornbread better.</p>
+        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/smoother_cornbread_BloxdTweaks.zip')">Download</button>
     </div>
-    <!-- Ajoutez les autres cartes ici, jusqu'à 30 -->
 </div>
+
 <script>
-    function downloadFile(fileUrl) {
-        const link = document.createElement('a');
-        link.href = fileUrl;
-        link.download = fileUrl.split('/').pop(); // Extrait le nom du fichier à partir de l'URL
-        link.click();
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    function downloadFile(url) {
+        window.location.href = url;
     }
+
+    function toggleFavorite(pack) {
+        if (favorites.includes(pack)) {
+            favorites = favorites.filter(fav => fav !== pack);
+        } else {
+            favorites.push(pack);
+        }
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        updateFavorites();
+    }
+
+    function updateFavorites() {
+        document.querySelectorAll('.card').forEach(card => {
+            const file = card.getAttribute('data-file');
+            const favButton = card.querySelector('.favorite');
+            favButton.textContent = favorites.includes(file) ? '★' : '☆';
+        });
+        sortPacks();
+    }
+
+    function sortPacks() {
+        const grid = document.getElementById('packsGrid');
+        const cards = Array.from(grid.children);
+        cards.sort((a, b) => {
+            const aFav = favorites.includes(a.getAttribute('data-file')) ? 1 : 0;
+            const bFav = favorites.includes(b.getAttribute('data-file')) ? 1 : 0;
+            return bFav - aFav;
+        });
+        cards.forEach(card => grid.appendChild(card));
+    }
+
+    function filterPacks() {
+        const query = document.querySelector('.search-bar').value.toLowerCase();
+        document.querySelectorAll('.card').forEach(card => {
+            const title = card.getAttribute('data-title').toLowerCase();
+            card.style.display = title.includes(query) ? 'block' : 'none';
+        });
+    }
+
+    updateFavorites();
 </script>
 </body>
 </html>
