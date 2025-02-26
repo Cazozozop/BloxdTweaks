@@ -63,10 +63,14 @@
         .card button:hover {
             background: #ffcc33;
         }
-        .favorite {
+        .actions {
             position: absolute;
             top: 10px;
             right: 10px;
+            display: flex;
+            gap: 5px;
+        }
+        .actions span {
             background: rgba(255, 255, 255, 0.8);
             color: black;
             padding: 0.2rem 0.5rem;
@@ -82,43 +86,49 @@
 </header>
 <div class="grid" id="packsGrid">
     <div class="card" data-file="pack1.zip" data-title="Fixed Bowls">
-        <span class="favorite" onclick="toggleFavorite('pack1.zip')">☆</span>
+        <div class="actions">
+            <span onclick="toggleFavorite('pack1.zip')">☆</span>
+            <span onclick="vote('pack1.zip', 1)">👍</span>
+            <span onclick="vote('pack1.zip', -1)">👎</span>
+        </div>
         <img src="https://iili.io/2Lowp7p.png" alt="Fixed Bowls">
         <h3>Fixed Bowls</h3>
         <p>A simple pack that fixes the positions and models of the rice bowls and mushroom soups.</p>
         <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/fixed_bowls_BloxdTweaks.zip')">Download</button>
     </div>
-    <div class="card" data-file="pack2.zip" data-title="Smoother Cornbread">
-        <span class="favorite" onclick="toggleFavorite('pack2.zip')">☆</span>
-        <img src="https://iili.io/2L5ZfCN.png" alt="Pack 2">
-        <h3>Smoother Cornbread</h3>
-        <p>A pack that just makes the cornbread better.</p>
-        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/smoother_cornbread_BloxdTweaks.zip')">Download</button>
-    </div>
 </div>
 
 <script>
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    let scores = JSON.parse(localStorage.getItem('scores')) || {};
 
     function downloadFile(url) {
         window.location.href = url;
     }
 
     function toggleFavorite(pack) {
-        if (favorites.includes(pack)) {
-            favorites = favorites.filter(fav => fav !== pack);
-        } else {
-            favorites.push(pack);
-        }
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-        updateFavorites();
+        scores[pack] = scores[pack] || { fav: 0, likes: 0, dislikes: 0 };
+        scores[pack].fav = scores[pack].fav ? 0 : 1;
+        saveScores();
     }
 
-    function updateFavorites() {
+    function vote(pack, value) {
+        scores[pack] = scores[pack] || { fav: 0, likes: 0, dislikes: 0 };
+        if (value === 1) scores[pack].likes++;
+        if (value === -1) scores[pack].dislikes++;
+        saveScores();
+    }
+
+    function saveScores() {
+        localStorage.setItem('scores', JSON.stringify(scores));
+        updateUI();
+    }
+
+    function updateUI() {
         document.querySelectorAll('.card').forEach(card => {
             const file = card.getAttribute('data-file');
-            const favButton = card.querySelector('.favorite');
-            favButton.textContent = favorites.includes(file) ? '★' : '☆';
+            const score = scores[file] || { fav: 0, likes: 0, dislikes: 0 };
+            const favButton = card.querySelector('.actions span:nth-child(1)');
+            favButton.textContent = score.fav ? '★' : '☆';
         });
         sortPacks();
     }
@@ -127,9 +137,11 @@
         const grid = document.getElementById('packsGrid');
         const cards = Array.from(grid.children);
         cards.sort((a, b) => {
-            const aFav = favorites.includes(a.getAttribute('data-file')) ? 1 : 0;
-            const bFav = favorites.includes(b.getAttribute('data-file')) ? 1 : 0;
-            return bFav - aFav;
+            const aScore = (scores[a.getAttribute('data-file')] || { fav: 0, likes: 0, dislikes: 0 });
+            const bScore = (scores[b.getAttribute('data-file')] || { fav: 0, likes: 0, dislikes: 0 });
+            const aValue = aScore.fav * 3 + aScore.likes - aScore.dislikes;
+            const bValue = bScore.fav * 3 + bScore.likes - bScore.dislikes;
+            return bValue - aValue;
         });
         cards.forEach(card => grid.appendChild(card));
     }
@@ -142,7 +154,7 @@
         });
     }
 
-    updateFavorites();
+    updateUI();
 </script>
 </body>
 </html>
