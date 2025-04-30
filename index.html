@@ -1,171 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
-<link rel="icon" type="image/png" href="favicon.ico">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BloxdTweaks</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <style>
-        body {
-            background: url('https://iili.io/2LnOhhX.png') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-            font-family: Arial, sans-serif;
-        }
-        header {
-            text-align: center;
-            padding: 1rem;
-            background: linear-gradient(90deg, #ff8c00, #ffcc33);
-        }
-        header h1 {
-            margin: 0;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-        }
-        .search-bar {
-            margin: 2rem auto;
-            width: 80%;
-            max-width: 600px;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin: 2rem;
-        }
-        .card {
-            position: relative;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-        }
-        .card img {
-            width: 100%;
-            border-radius: 4px;
-        }
-        .card button {
-            margin-top: 1rem;
-            background: linear-gradient(90deg, #ff8c00, #ffcc33);
-            border: none;
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .card button:hover {
-            background: #ffcc33;
-        }
-        .actions {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            gap: 5px;
-        }
-        .actions span {
-            background: rgba(255, 255, 255, 0.8);
-            color: black;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BloxdTweaks</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header>
+  <header>
     <h1>BloxdTweaks</h1>
-    <input type="search" class="search-bar" placeholder="Search for packs..." oninput="filterPacks()">
-</header>
-<div class="grid" id="packsGrid">
-    <div class="card" data-file="pack1.zip" data-title="Fixed Bowls">
-        <div class="actions">
-            <span onclick="toggleFavorite('pack1.zip')">☆</span>
-            <span onclick="vote('pack1.zip', 1)">👍</span>
-            <span onclick="vote('pack1.zip', -1)">👎</span>
-        </div>
-        <img src="https://iili.io/2Lowp7p.png" alt="Fixed Bowls">
-        <h3>Fixed Bowls</h3>
-        <p>A simple pack that fixes the positions and models of the rice bowls and mushroom soups.</p>
-        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/fixed_bowls_BloxdTweaks.zip')">Download</button>
-    </div>
-</div>
-    <div class="card" data-file="pack2.zip">
-                <div class="actions">
-            <span onclick="toggleFavorite('pack1.zip')">☆</span>
-            <span onclick="vote('pack1.zip', 1)">👍</span>
-            <span onclick="vote('pack1.zip', -1)">👎</span>
-        </div>
-        <img src="https://iili.io/2L5ZfCN.png" alt="Pack 2">
-        <h3>Smoother Cornbread</h3>
-        <p>A pack that just make the cornbread better.</p>
-        <button onclick="downloadFile('https://github.com/Cazozozop/BloxdTweaks/raw/main/smoother_cornbread_BloxdTweaks.zip')">Download</button>
-    </div>
-<script>
-    let scores = JSON.parse(localStorage.getItem('scores')) || {};
-
-    function downloadFile(url) {
-        window.location.href = url;
-    }
-
-    function toggleFavorite(pack) {
-        scores[pack] = scores[pack] || { fav: 0, likes: 0, dislikes: 0 };
-        scores[pack].fav = scores[pack].fav ? 0 : 1;
-        saveScores();
-    }
-
-    function vote(pack, value) {
-        scores[pack] = scores[pack] || { fav: 0, likes: 0, dislikes: 0 };
-        if (value === 1) scores[pack].likes++;
-        if (value === -1) scores[pack].dislikes++;
-        saveScores();
-    }
-
-    function saveScores() {
-        localStorage.setItem('scores', JSON.stringify(scores));
-        updateUI();
-    }
-
-    function updateUI() {
-        document.querySelectorAll('.card').forEach(card => {
-            const file = card.getAttribute('data-file');
-            const score = scores[file] || { fav: 0, likes: 0, dislikes: 0 };
-            const favButton = card.querySelector('.actions span:nth-child(1)');
-            favButton.textContent = score.fav ? '★' : '☆';
-        });
-        sortPacks();
-    }
-
-    function sortPacks() {
-        const grid = document.getElementById('packsGrid');
-        const cards = Array.from(grid.children);
-        cards.sort((a, b) => {
-            const aScore = (scores[a.getAttribute('data-file')] || { fav: 0, likes: 0, dislikes: 0 });
-            const bScore = (scores[b.getAttribute('data-file')] || { fav: 0, likes: 0, dislikes: 0 });
-            const aValue = aScore.fav * 3 + aScore.likes - aScore.dislikes;
-            const bValue = bScore.fav * 3 + bScore.likes - bScore.dislikes;
-            return bValue - aValue;
-        });
-        cards.forEach(card => grid.appendChild(card));
-    }
-
-    function filterPacks() {
-        const query = document.querySelector('.search-bar').value.toLowerCase();
-        document.querySelectorAll('.card').forEach(card => {
-            const title = card.getAttribute('data-title').toLowerCase();
-            card.style.display = title.includes(query) ? 'block' : 'none';
-        });
-    }
-
-    updateUI();
-</script>
+    <p>Sélectionnez vos packs de textures personnalisés pour Bloxd.io</p>
+  </header>
+  <main>
+    <section id="pack-list">
+      <!-- Les packs seront générés ici par JavaScript -->
+    </section>
+    <section id="conflicts">
+      <h2>Incompatibilités détectées</h2>
+      <ul id="conflict-list"></ul>
+    </section>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>
