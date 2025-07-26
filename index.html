@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BloxdTweaks - Resource Packs pour Bloxd.io</title>
+    <title>BloxdTweaks - Texture Packs for Bloxd.io</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -157,7 +157,7 @@
         }
 
         .pack-image {
-            width: 100%;
+            width: 150%;
             height: 150px;
             object-fit: cover;
             border-radius: 10px;
@@ -277,7 +277,7 @@
 <body>
     <header class="header">
         <h1><i class="fas fa-cube"></i> BloxdTweaks</h1>
-        <p>Créez votre pack de ressources personnalisé pour Bloxd.io</p>
+        <p>Create your own tesxture pack for bloxd.io</p>
     </header>
 
     <div class="container">
@@ -287,9 +287,9 @@
 
     <div class="download-section" id="downloadSection">
         <div class="download-content">
-            <div class="selected-count" id="selectedCount">0 packs sélectionnés</div>
+            <div class="selected-count" id="selectedCount">0 packs selectionned</div>
             <button class="download-btn" onclick="downloadPack()">
-                <i class="fas fa-download"></i> Télécharger le Pack
+                <i class="fas fa-download"></i> Download the Pack
             </button>
         </div>
     </div>
@@ -299,11 +299,11 @@
     <script>
         // CONFIGURATION - Modifiez facilement ici
         const categories = [
-            { name: 'Tous', id: 'all' },
+            { name: 'All', id: 'all' },
             { name: 'Textures', id: 'textures' },
-            { name: 'Outils', id: 'tools' },
-            { name: 'Interface', id: 'ui' },
-            { name: 'Effets', id: 'effects' }
+            { name: 'Tools', id: 'tools' },
+            { name: 'UI', id: 'ui' },
+            { name: 'Effects', id: 'effects' }
         ];
 
         const packs = [
