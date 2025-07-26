@@ -1,25 +1,501 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BloxdTweaks</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloxdTweaks - Resource Packs pour Bloxd.io</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Font Awesome 6 Free', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff8c00 0%, #ffa500 100%);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(255, 165, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .category-btn {
+            background: linear-gradient(135deg, #ff8c00, #ffa500);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 165, 0, 0.4);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #ffa500, #ffb84d);
+            box-shadow: 0 4px 15px rgba(255, 165, 0, 0.5);
+        }
+
+        .packs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .pack-card {
+            background: linear-gradient(135deg, #2d2d2d, #3a3a3a);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pack-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 165, 0, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .pack-card:hover::before {
+            left: 100%;
+        }
+
+        .pack-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff8c00;
+            box-shadow: 0 15px 40px rgba(255, 140, 0, 0.2);
+        }
+
+        .pack-card.selected {
+            border-color: #ffa500;
+            background: linear-gradient(135deg, #3a2d00, #4a3a00);
+            box-shadow: 0 8px 32px rgba(255, 165, 0, 0.3);
+        }
+
+        .pack-card.incompatible {
+            opacity: 0.5;
+            background: linear-gradient(135deg, #2d1a1a, #3a2020);
+            border-color: #ff4444;
+        }
+
+        .pack-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .pack-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #ffa500;
+        }
+
+        .pack-description {
+            color: #cccccc;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .pack-checkbox {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .download-section {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            padding: 1.5rem;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .download-section.show {
+            transform: translateY(0);
+        }
+
+        .download-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .selected-count {
+            color: #ffa500;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #ff8c00, #ffa500);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 165, 0, 0.4);
+        }
+
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+
+        .notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #ff8c00, #ffa500);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(255, 165, 0, 0.3);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .packs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .download-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>BloxdTweaks</h1>
-    <p>Sélectionnez vos packs de textures personnalisés pour Bloxd.io</p>
-  </header>
-  <main>
-    <section id="pack-list">
-      <!-- Les packs seront générés ici par JavaScript -->
-    </section>
-    <section id="conflicts">
-      <h2>Incompatibilités détectées</h2>
-      <ul id="conflict-list"></ul>
-    </section>
-  </main>
-  <script src="script.js"></script>
+    <header class="header">
+        <h1><i class="fas fa-cube"></i> BloxdTweaks</h1>
+        <p>Créez votre pack de ressources personnalisé pour Bloxd.io</p>
+    </header>
+
+    <div class="container">
+        <div class="categories" id="categories"></div>
+        <div class="packs-grid" id="packsGrid"></div>
+    </div>
+
+    <div class="download-section" id="downloadSection">
+        <div class="download-content">
+            <div class="selected-count" id="selectedCount">0 packs sélectionnés</div>
+            <button class="download-btn" onclick="downloadPack()">
+                <i class="fas fa-download"></i> Télécharger le Pack
+            </button>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // CONFIGURATION - Modifiez facilement ici
+        const categories = [
+            { name: 'Tous', id: 'all' },
+            { name: 'Textures', id: 'textures' },
+            { name: 'Outils', id: 'tools' },
+            { name: 'Interface', id: 'ui' },
+            { name: 'Effets', id: 'effects' }
+        ];
+
+        const packs = [
+            {
+                name: 'OG Smooth Stone',
+                description: 'Restaure l\'apparence classique de la pierre lisse',
+                image: 'https://via.placeholder.com/300x150/8B4513/FFFFFF?text=OG+Smooth+Stone',
+                file: 'og_smooth_stone.zip',
+                category: 'textures'
+            },
+            {
+                name: 'Better Smooth Stone',
+                description: 'Version améliorée de la texture de pierre lisse',
+                image: 'https://via.placeholder.com/300x150/696969/FFFFFF?text=Better+Smooth+Stone',
+                file: 'better_smooth_stone.zip',
+                category: 'textures'
+            },
+            {
+                name: 'Mini Tools',
+                description: 'Réduit la taille des outils dans l\'inventaire',
+                image: 'https://via.placeholder.com/300x150/4169E1/FFFFFF?text=Mini+Tools',
+                file: 'mini_tools.zip',
+                category: 'tools'
+            },
+            {
+                name: 'Red Diamond',
+                description: 'Change la couleur des diamants en rouge',
+                image: 'https://via.placeholder.com/300x150/DC143C/FFFFFF?text=Red+Diamond',
+                file: 'red_diamond.zip',
+                category: 'textures'
+            },
+            {
+                name: 'Clean UI',
+                description: 'Interface utilisateur simplifiée et épurée',
+                image: 'https://via.placeholder.com/300x150/32CD32/FFFFFF?text=Clean+UI',
+                file: 'clean_ui.zip',
+                category: 'ui'
+            },
+            {
+                name: 'Particle Effects',
+                description: 'Effets de particules améliorés',
+                image: 'https://via.placeholder.com/300x150/9370DB/FFFFFF?text=Particle+Effects',
+                file: 'particle_effects.zip',
+                category: 'effects'
+            }
+        ];
+
+        // Liste des packs incompatibles (par nom)
+        const incompatibles = [
+            ['OG Smooth Stone', 'Better Smooth Stone']
+        ];
+
+        // Fusionneurs (pack1, pack2, pack fusionné)
+        const mergers = [
+            ['Mini Tools', 'Red Diamond', 'mini_tools_red_diamond.zip']
+        ];
+
+        // Variables globales
+        let selectedPacks = new Set();
+        let currentCategory = 'all';
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCategories();
+            renderPacks();
+        });
+
+        function renderCategories() {
+            const categoriesContainer = document.getElementById('categories');
+            categoriesContainer.innerHTML = categories.map(category => 
+                `<button class="category-btn ${category.id === 'all' ? 'active' : ''}" 
+                         onclick="filterCategory('${category.id}')">${category.name}</button>`
+            ).join('');
+        }
+
+        function renderPacks() {
+            const packsGrid = document.getElementById('packsGrid');
+            const filteredPacks = currentCategory === 'all' ? packs : packs.filter(pack => pack.category === currentCategory);
+            
+            packsGrid.innerHTML = filteredPacks.map(pack => {
+                const isSelected = selectedPacks.has(pack.name);
+                const isIncompatible = isPackIncompatible(pack.name);
+                
+                return `
+                    <div class="pack-card ${isSelected ? 'selected' : ''} ${isIncompatible ? 'incompatible' : ''}" 
+                         onclick="togglePack('${pack.name}')">
+                        <input type="checkbox" class="pack-checkbox" ${isSelected ? 'checked' : ''} ${isIncompatible ? 'disabled' : ''}>
+                        <img src="${pack.image}" alt="${pack.name}" class="pack-image">
+                        <h3 class="pack-title">${pack.name}</h3>
+                        <p class="pack-description">${pack.description}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterCategory(categoryId) {
+            currentCategory = categoryId;
+            
+            // Mettre à jour les boutons de catégorie
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            renderPacks();
+        }
+
+        function togglePack(packName) {
+            if (isPackIncompatible(packName)) return;
+            
+            if (selectedPacks.has(packName)) {
+                selectedPacks.delete(packName);
+            } else {
+                selectedPacks.add(packName);
+            }
+            
+            updateDownloadSection();
+            renderPacks();
+        }
+
+        function isPackIncompatible(packName) {
+            if (!selectedPacks.has(packName)) {
+                // Vérifier si ce pack est incompatible avec un pack déjà sélectionné
+                for (const incompatibleGroup of incompatibles) {
+                    if (incompatibleGroup.includes(packName)) {
+                        // Vérifier si un autre pack de ce groupe est déjà sélectionné
+                        const otherPacks = incompatibleGroup.filter(p => p !== packName);
+                        if (otherPacks.some(p => selectedPacks.has(p))) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        function updateDownloadSection() {
+            const downloadSection = document.getElementById('downloadSection');
+            const selectedCount = document.getElementById('selectedCount');
+            
+            selectedCount.textContent = `${selectedPacks.size} pack${selectedPacks.size > 1 ? 's' : ''} sélectionné${selectedPacks.size > 1 ? 's' : ''}`;
+            
+            if (selectedPacks.size > 0) {
+                downloadSection.classList.add('show');
+            } else {
+                downloadSection.classList.remove('show');
+            }
+        }
+
+        function downloadPack() {
+            if (selectedPacks.size === 0) return;
+            
+            // Créer la liste des fichiers à télécharger
+            const filesToDownload = [];
+            const selectedPacksArray = Array.from(selectedPacks);
+            
+            // Vérifier les fusions possibles
+            for (const [pack1, pack2, mergedFile] of mergers) {
+                if (selectedPacksArray.includes(pack1) && selectedPacksArray.includes(pack2)) {
+                    filesToDownload.push(mergedFile);
+                    // Retirer les packs individuels de la liste
+                    selectedPacksArray.splice(selectedPacksArray.indexOf(pack1), 1);
+                    selectedPacksArray.splice(selectedPacksArray.indexOf(pack2), 1);
+                }
+            }
+            
+            // Ajouter les packs restants
+            for (const packName of selectedPacksArray) {
+                const pack = packs.find(p => p.name === packName);
+                if (pack) {
+                    filesToDownload.push(pack.file);
+                }
+            }
+            
+            // Simuler le téléchargement
+            showNotification(`Téléchargement de ${filesToDownload.length} fichier${filesToDownload.length > 1 ? 's' : ''} en cours...`);
+            
+            console.log('Fichiers à télécharger:', filesToDownload);
+            
+            // Ici, vous pouvez implémenter la logique réelle de téléchargement
+            // Par exemple, créer un ZIP contenant tous les fichiers sélectionnés
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
